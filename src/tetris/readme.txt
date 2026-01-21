@@ -1,2 +1,1 @@
-#Зараз  роблю як фігури мають рухатись
-#чтомусь проблеми з rotate
+Endless tetris in console
