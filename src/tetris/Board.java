@@ -9,7 +9,7 @@ public class Board {
         grid = new int[height][width];
     }
 
-    public void render(Tetromino piece) {
+    public void render(Tetromino piece, int score) {
 
         for (int i = 0; i < height; i++) System.out.println();
 
@@ -26,7 +26,8 @@ public class Board {
                 }
                 System.out.println("|");
             }
-            System.out.println("----------");
+            System.out.println("----------------------");
+            System.out.println("Score: " + score);
             }
             private boolean isPieceAt(int gridX, int gridY, Tetromino p) {
                 int[][] shape = p.getShape();
@@ -82,23 +83,31 @@ public class Board {
         }
     }
 
-    public void clearLines() {
-        for (int y = 0; y < height; y++) {
-            boolean fullLine = true;
-            for (int x = 0; x < width; x++) {
-                if (grid[y][x] == 0) {
-                    fullLine = false;
-                    break;
-                }
-            }
-            if (fullLine) {
-                for (int row = y; row > 0; row--) {
-                    System.arraycopy(grid[row - 1], 0, grid[row], 0, width);
-                }
-                for (int x = 0; x < width; x++) {
-                    grid[0][x] = 0;
-                }
+    public int clearLines() {
+    int linesCleared = 0;
+    
+    for (int y = height - 1; y >= 0; y--) {
+        boolean fullLine = true;
+        for (int x = 0; x < width; x++) {
+            if (grid[y][x] == 0) {
+                fullLine = false;
+                break;
             }
         }
+
+        if (fullLine) {
+            for (int row = y; row > 0; row--) {
+                System.arraycopy(grid[row - 1], 0, grid[row], 0, width);
+            }
+            for (int x = 0; x < width; x++) {
+                grid[0][x] = 0;
+            }
+            
+            linesCleared++;
+            
+            y++; 
+        }
     }
+    return linesCleared;
+    } 
 }
