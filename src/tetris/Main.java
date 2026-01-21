@@ -36,10 +36,11 @@ public class Main {
     private static void runGame(Scanner scanner) {
         Board board = new Board();
         Random random = new Random();
+        int score = 0;
         Tetromino currentPiece = new Tetromino(ALL_SHAPES[random.nextInt(ALL_SHAPES.length)]);
 
         while (true) {
-            board.render(currentPiece);
+            board.render(currentPiece, score);
             System.out.println("Controls: ");
             System.out.println("a - left, d - right, s - down, w - rotate, q - quit to menu");
             String input = scanner.nextLine();
@@ -60,11 +61,15 @@ public class Main {
                     currentPiece.moveDown();
                 } else {
                     board.freezePiece(currentPiece);
-                    board.clearLines();
+                    int cleared = board.clearLines();
+                    if (cleared == 1) score += 100;
+                    else if (cleared == 2) score += 300;
+                    else if (cleared == 3) score += 500;
+                    else if (cleared >= 4) score += 800;
                     currentPiece = new Tetromino(ALL_SHAPES[random.nextInt(ALL_SHAPES.length)]);
                     if (!board.canMove(currentPiece, currentPiece.getX(), currentPiece.getY())) {
-                        board.render(currentPiece);
-                        System.out.println("Game Over!");
+                        board.render(currentPiece, score);
+                        System.out.println("Game Over!, Your Score: " + score);
                         System.out.println("Press Enter to return to menu...");
                         scanner.nextLine();
                         return;
