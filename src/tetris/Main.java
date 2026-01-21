@@ -1,10 +1,10 @@
 package tetris;
 import java.util.Scanner;
-import java.util.Random; 
+import java.util.Random;
 
 public class Main {
     private static final int[][][] ALL_SHAPES = {
-        {{1, 1, 1, 1}}, // I
+        {{0, 0, 0, 0},{1, 1, 1, 1},{0, 0, 0, 0},{0, 0, 0, 0}}, // I
         {{1, 1}, {1, 1}}, // O
         {{0, 1, 0}, {1, 1, 1}}, // T
         {{1, 0, 0}, {1, 1, 1}}, // J
@@ -18,9 +18,8 @@ public class Main {
         System.out.println("1. Start Game");
         System.out.println("2. Exit");
         System.out.print("Choose an option: ");
-    }
-
-public static void main(String[] args) {
+        }
+    public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         while (true) {
             Menu();
@@ -46,6 +45,38 @@ public static void main(String[] args) {
             String input = scanner.nextLine();
 
             if (input.equals("q")) return;
+            if (input.equals("a")) {
+                if (board.canMove(currentPiece, currentPiece.getX() - 1, currentPiece.getY())) {
+                    currentPiece.moveLeft();
+                }
+            }
+            if (input.equals("d")) {
+                if (board.canMove(currentPiece, currentPiece.getX() + 1, currentPiece.getY())) {
+                    currentPiece.moveRight();
+                }
+            }
+            if (input.equals("s")) {
+                if (board.canMove(currentPiece, currentPiece.getX(), currentPiece.getY() + 1)) {
+                    currentPiece.moveDown();
+                } else {
+                    board.freezePiece(currentPiece);
+                    board.clearLines();
+                    currentPiece = new Tetromino(ALL_SHAPES[random.nextInt(ALL_SHAPES.length)]);
+                    if (!board.canMove(currentPiece, currentPiece.getX(), currentPiece.getY())) {
+                        board.render(currentPiece);
+                        System.out.println("Game Over!");
+                        System.out.println("Press Enter to return to menu...");
+                        scanner.nextLine();
+                        return;
+                    }
+                }
+            }
+            if (input.equals("w")) {
+                Tetromino rotated = currentPiece.rotate();
+                if (board.canMove(rotated, rotated.getX(), rotated.getY())) {
+                    currentPiece = rotated;
+                }
+            }
         }
     }
 }
