@@ -52,14 +52,17 @@ public class Board {
 
                     if (targetX < 0 || targetX >= width || targetY >= height) {
                         return false;
+                    }
 
                     if (grid[targetY][targetX] != 0) {
                         return false;
                     }
+                }
             }
         }
         return true;
     }
+
 
     public void freezePiece(Tetromino p) {
         int[][] shape = p.getShape();
