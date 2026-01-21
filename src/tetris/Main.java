@@ -69,7 +69,7 @@ public class Main {
                     currentPiece = new Tetromino(ALL_SHAPES[random.nextInt(ALL_SHAPES.length)]);
                     if (!board.canMove(currentPiece, currentPiece.getX(), currentPiece.getY())) {
                         board.render(currentPiece, score);
-                        System.out.println("Game Over!, Your Score: " + score);
+                        System.out.println("Game Over!, Final Score: " + score);
                         System.out.println("Press Enter to return to menu...");
                         scanner.nextLine();
                         return;
