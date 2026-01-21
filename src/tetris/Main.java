@@ -40,7 +40,7 @@ public class Main {
         while (true) {
             board.render(currentPiece);
             System.out.println("Controls: ");
-            System.out.println("a/d/s/w - walk, q - quit to menu");
+            System.out.println("a - left, d - right, s - down, w - rotate, q - quit to menu");
             String input = scanner.nextLine();
 
             if (input.equals("q")) return;
