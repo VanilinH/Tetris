@@ -20,15 +20,17 @@ public class Main {
         System.out.print("Choose an option: ");
     }
 
-    public static void main(String[] args) {
-        Menu();
+public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        String choice = scanner.nextLine();
-        if (choice.equals("1")) runGame(scanner);
-        else if (choice.equals("2")) System.exit(0);
-        else {
-            System.out.println("Invalid choice. Exiting.");
-            System.exit(0);
+        while (true) {
+            Menu();
+            String choice = scanner.nextLine();
+            if (choice.equals("1")) runGame(scanner);
+            else if (choice.equals("2")) System.exit(0);
+            else {
+                System.out.println("Invalid choice. Exiting.");
+                System.exit(0);
+            }
         }
     }
 
