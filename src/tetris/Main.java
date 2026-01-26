@@ -2,7 +2,10 @@ package tetris;
 import java.util.Scanner;
 import java.util.Random;
 
+
+// Main class to run the Tetris game
 public class Main {
+    // All possible Tetromino shapes
     private static final int[][][] ALL_SHAPES = {
         {{0, 0, 0, 0},{1, 1, 1, 1},{0, 0, 0, 0},{0, 0, 0, 0}}, // I
         {{1, 1}, {1, 1}}, // O
@@ -12,7 +15,7 @@ public class Main {
         {{1, 1, 0}, {0, 1, 1}}, // S
         {{0, 1, 1}, {1, 1, 0}}  // Z
     };
-
+// Display the main menu
     private static void Menu() {
         System.out.println("----- TETRIS ----");
         System.out.println("1. Start Game");
@@ -32,7 +35,7 @@ public class Main {
             }
         }
     }
-
+// Run the Tetris game loop
     private static void runGame(Scanner scanner) {
         Board board = new Board();
         Random random = new Random();
@@ -46,22 +49,27 @@ public class Main {
             String input = scanner.nextLine();
 
             if (input.equals("q")) return;
+            // Move left
             if (input.equals("a")) {
                 if (board.canMove(currentPiece, currentPiece.getX() - 1, currentPiece.getY())) {
                     currentPiece.moveLeft();
                 }
             }
+            // Move right
             if (input.equals("d")) {
                 if (board.canMove(currentPiece, currentPiece.getX() + 1, currentPiece.getY())) {
                     currentPiece.moveRight();
                 }
             }
+            // Move down
             if (input.equals("s")) {
                 if (board.canMove(currentPiece, currentPiece.getX(), currentPiece.getY() + 1)) {
                     currentPiece.moveDown();
                 } else {
+                    // Piece cannot move down, freeze it and spawn a new one
                     board.freezePiece(currentPiece);
                     int cleared = board.clearLines();
+                    // Update score based on cleared lines
                     if (cleared == 1) score += 100;
                     else if (cleared == 2) score += 300;
                     else if (cleared == 3) score += 500;
@@ -76,6 +84,7 @@ public class Main {
                     }
                 }
             }
+            // Rotate the piece
             if (input.equals("w")) {
                 Tetromino rotated = currentPiece.rotate();
                 if (board.canMove(rotated, rotated.getX(), rotated.getY())) {
