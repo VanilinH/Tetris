@@ -1,5 +1,6 @@
 package tetris;
 
+//  Class representing the Tetris game board
 public class Board {
     private final int width = 10;
     private final int height = 20;
@@ -8,7 +9,7 @@ public class Board {
     public Board() {
         grid = new int[height][width];
     }
-
+// Render the board with the current piece and score
     public void render(Tetromino piece, int score) {
 
         for (int i = 0; i < height; i++) System.out.println();
@@ -29,6 +30,7 @@ public class Board {
             System.out.println("----------------------");
             System.out.println("Score: " + score);
             }
+            // Check if the piece occupies the given grid position
             private boolean isPieceAt(int gridX, int gridY, Tetromino p) {
                 int[][] shape = p.getShape();
                 int pieceX = p.getX();
@@ -40,7 +42,7 @@ public class Board {
                 }
                 return false;
             }
-
+// Check if the piece can move to the specified position
             public boolean canMove(Tetromino p, int nextX, int nextY) {
         int[][] shape = p.getShape();
         for (int row = 0; row < shape.length; row++) {
@@ -64,7 +66,7 @@ public class Board {
         return true;
     }
 
-
+// Freeze the piece on the board
     public void freezePiece(Tetromino p) {
         int[][] shape = p.getShape();
         int pieceX = p.getX();
@@ -82,7 +84,7 @@ public class Board {
             }
         }
     }
-
+// Clear completed lines and return the number of lines cleared
     public int clearLines() {
     int linesCleared = 0;
     
